@@ -1,0 +1,37 @@
+{% load static %}
+<html>
+
+<head>
+    <title>LitReviews</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://kit.fontawesome.com/8e873955b8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <p>LITReview</p>
+            {%if user.is_authenticated %}
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{% url 'posts:home' %}">Flux</a></li>
+                    </li>
+                    <li><a href="{% url 'posts:home' %}">Posts</a></li>
+                    </li>
+                    <li><a href="{% url 'followers_page'  %}">Abonnements</a></li>
+                    </li>
+                    <li><a href="{% url 'logout' %}">Me déconnecter</a></li>
+                    <li><a href="{% url 'user_profile' request.user %}">Mon Profil</a></li>
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container" style="flex-direction: column;">
+        {% block content %}{% endblock content %}
+    </div>
+
+</body>
+
+</html>
