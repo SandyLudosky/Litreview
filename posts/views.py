@@ -11,13 +11,13 @@ from . import forms
 
 # Create your views here.
 @login_required(login_url='login/')
-def get(request):
+def posts(request):
     template_name = 'posts/index.html'
     if not request.user.is_authenticated:
         return HttpResponseRedirect('login') # or http response
     else:
-        tickets = []
-        reviews = []
+        tickets = Ticket.objects.filter(user=request.user)
+        reviews = Review.objects.filter(user=request.user)
         items = np.concatenate((tickets, reviews))
         items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
 
@@ -44,7 +44,7 @@ def create_ticket(request):
             if form.cleaned_data['image']:
                 ticket.image = form.cleaned_data['image']
             ticket.save()
-            return redirect('home')
+            return redirect('posts:home')
     context = {
         'form': form
     }
@@ -67,7 +67,7 @@ def create_review(request, ticket_id):
             review.ticket.has_review = True
             review.ticket.save()
             review.save()
-            return redirect('home')
+            return redirect('posts:home')
     context = {
         'both': False,
         'form': form,
@@ -125,7 +125,7 @@ def edit_ticket(request, ticket_id):
             delete_form = forms.TicketFormDelete(request.POST)
             if delete_form.is_valid():
                 ticket.delete()
-                return redirect('home')
+                return redirect('posts:home')
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form
@@ -152,7 +152,7 @@ def edit_review(request, review_id):
             delete_form = forms.ReviewFormDelete(request.POST)
             if delete_form.is_valid():
                 review.delete()
-                return redirect('home')
+                return redirect('posts:home')
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form

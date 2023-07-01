@@ -5,7 +5,13 @@
     <a class="btn mr-5" href="{% url 'posts:create_ticket' %}">Demander une critique</a>
     <a class="btn" href="{% url 'posts:create_ticket_and_review' %}">Créer une critique</a>
 </div>
-
+{% for item in items %}
+{% if item.title %}
+{% include 'posts/partials/ticket.html' with ticket=item %}
+{% else %}
+{% include 'posts/partials/request_review.html' with review=item %}
+{% endif %}
+{% endfor %}
 
 </div>
 {% endblock content %}

@@ -1,10 +1,10 @@
 from . import views
 from django.urls import path
-from .views import get, create_ticket, create_review, create_ticket_and_review, edit_ticket, edit_review
+from .views import posts, create_ticket, create_review, create_ticket_and_review, edit_ticket, edit_review
 
 app_name = "posts"
 urlpatterns = [
-    path('', get, name='home'),
+    path('', posts, name='home'),
     path('create-ticket/', create_ticket, name='create_ticket'),
     path('create-review/', create_ticket_and_review, name='create_ticket_and_review'),
     path('create-review/<int:ticket_id>/', create_review, name='create_review'),
