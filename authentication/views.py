@@ -6,10 +6,10 @@ from . import forms
 
 
 def signup(request):
-    form = forms.SignupForm
+    form = forms.SignupForm()
     template_name = 'authentication/signup.html'
     if request.method == 'POST':
-        form = forms.SignUpForm(request.POST)
+        form = forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -37,7 +37,7 @@ def login_user(request):
             )
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect(settings.LOGIN_REDIRECT_URL)
             else:
                 message = 'Identifiants invalides.'
     context = {

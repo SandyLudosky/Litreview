@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form form__review">
+    <h2>Créer une critique</h2>
+    {% if both %}
+    <form method="post" enctype="multipart/form-data" style="width: 80%;">
+        <h4>A propos de ce livre:</h4>
+        {{ ticket_form.as_p }}
+        <h4>Critique</h4>
+        {{ review_form.as_p }}
+        {% csrf_token %}
+        <input class="btn" type="submit" value="Envoyer" style="width: auto; height: auto;">
+    </form>
+    {% else %}
+    <div style="width: 80%; padding: 1rem">
+        <p style="align-self: flex-start;">Vous êtes en train de poster une critique</p>
+        <div style="display: flex;">
+            {% include 'posts/partials/ticket.html' with ticket=ticket %}
+        </div>
+
+    </div>
+
+    <form method="post" style="width: 80%; border: 1px solid #000; padding: 1rem">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input class="btn" type="submit" value="Envoyer" style="width: auto; height: auto;">
+    </form>
+    {% endif %}
+</div>
+{% endblock content %}

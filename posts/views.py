@@ -16,8 +16,8 @@ def get(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('login') # or http response
     else:
-        tickets = Ticket.objects.all()
-        reviews = Review.objects.all()
+        tickets = []
+        reviews = []
         items = np.concatenate((tickets, reviews))
         items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
 
@@ -80,8 +80,9 @@ def create_review(request, ticket_id):
     )
 
 
-@login_required(login_url='login/')
 def create_ticket_and_review(request):
+    ticket_form = forms.TicketForm()
+    review_form = forms.ReviewForm()
     if request.method == 'POST':
         ticket_form = forms.TicketForm(request.POST, request.FILES)
         review_form = forms.ReviewForm(request.POST)
@@ -96,7 +97,7 @@ def create_ticket_and_review(request):
             review.user = request.user
             review.ticket = get_object_or_404(Ticket, id=ticket.id)
             review.save()
-            return redirect('home')
+            return redirect('posts:home')
     context = {
         'both': True,
         'ticket_form': ticket_form,

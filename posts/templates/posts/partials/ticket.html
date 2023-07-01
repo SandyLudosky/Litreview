@@ -1,0 +1,31 @@
+<div class="card"
+    style="padding: 0.2rem 1rem 1rem 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
+    <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
+        <div style="margin-bottom: 2rem;">
+            {%if request.user == ticket.user%}
+            <p>Vous avez publié une critique</p>
+            {% else %}
+            <p>{{ ticket.user }} a publié une critique</p>
+            {% endif %}
+
+        </div>
+        <p>{{ review.time_created }}</p>
+    </div>
+
+    <p>Ticket - {{ ticket.user }}</p>
+    {% if ticket.description|length > 0 %}
+    <p class="description">{{ ticket.description }}</p>
+    {% endif %}
+
+    <div style="border: 1px solid #000; padding: 1rem">
+        <h3>{{ ticket.title }}</h3>
+        <div class="photo-description">
+            {% if ticket.image %}
+            <p>
+                <img class="photo" src="{{ ticket.image.url }}">
+            </p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
