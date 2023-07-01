@@ -1,0 +1,9 @@
+<div class="card" style="padding: 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
+    <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
+        <p>{{ review.user }} a publié une critique</p>
+        <p>{{ review.time_created }}</p>
+    </div>
+    <h3>{{ review.title }}</h3>
+    <a class="btn" href="{% url 'posts:create_review' review.id %}">Créer une critique</a>
+
+</div>
