@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from . import forms
+from authentication import models as authentication
 from . import models
 
 
 @login_required
-def follows(request):
+def follow(request):
     form = forms.UserFollowsForm()
     followers = models.UserFollows.objects.filter(followed_user=request.user)
     follows = models.UserFollows.objects.filter(user=request.user)
@@ -14,10 +15,14 @@ def follows(request):
         form = forms.UserFollowsForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            if username != f'{request.user}':
+            print(username != f'{request.user.username}')
+            print(request.user.username)
+            if username != f'{request.user.username}':
                 try:
-                    user = models.User.objects.get(id=request.user.id)
-                    followed_user = models.User.objects.filter(username=username)[0]
+                    user = authentication.User.objects.get(id=request.user.id)
+                    print(user)
+                    followed_user = authentication.User.objects.filter(username=username)[0]
+                    print(followed_user)
                     if followed_user is not None:
                         add_follower = models.UserFollows(user=user, followed_user=followed_user)
                         add_follower.save()
@@ -25,7 +30,7 @@ def follows(request):
                         return redirect('follows')
                 except Exception:
                     form = forms.UserFollowsForm()
-                    error = "Désolé ce compte utilisateur n'exsite pas"
+                    error = "Désolé ce compte utilisateur n'existe pas"
             else:
                 error = 'Désolé vous ne pouvez pas vous auto-abonné'
     context = {'form': form, 'followers': followers,
