@@ -7,9 +7,9 @@
 </div> -->
 {% for item in items %}
 {% if item.title %}
-{% include 'posts/partials/ticket.html' with ticket=item %}
+{% include 'feed/partials/ticket.html' with ticket=item %}
 {% else %}
-{% include 'posts/partials/request_review.html' with review=item %}
+{% include 'feed/partials/request_review.html' with review=item %}
 {% endif %}
 {% endfor %}
 

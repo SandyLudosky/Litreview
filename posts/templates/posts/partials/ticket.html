@@ -9,7 +9,7 @@
             {% endif %}
 
         </div>
-        <p>{{ review.time_created }}</p>
+        <p>{{ ticket.time_created }}</p>
     </div>
 
     <p>Ticket - {{ ticket.user }}</p>
@@ -28,4 +28,6 @@
 
         </div>
     </div>
+    <a class="btn" href="{% url 'posts:edit_ticket' ticket.id %}">Modifier</a>
+    <a class="btn" href="{% url 'posts:delete_ticket' ticket.id %}">Supprimer</a>
 </div>

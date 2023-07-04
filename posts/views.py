@@ -120,7 +120,7 @@ def edit_ticket(request, ticket_id):
             edit_form = forms.TicketForm(request.POST, instance=ticket)
             if edit_form.is_valid():
                 edit_form.save()
-                return redirect('feed')
+                return redirect('posts:home')
         if 'delete_ticket' in request.POST:
             delete_form = forms.TicketFormDelete(request.POST)
             if delete_form.is_valid():
@@ -132,7 +132,7 @@ def edit_ticket(request, ticket_id):
     }
     return render(
         request,
-        'feed/edit_ticket.html',
+        'posts/edit_ticket.html',
         context
     )
 
@@ -147,7 +147,7 @@ def edit_review(request, review_id):
             edit_form = forms.ReviewForm(request.POST, instance=review)
             if edit_form.is_valid():
                 edit_form.save()
-                return redirect('feed')
+                return redirect('posts:home')
         if 'delete_review' in request.POST:
             delete_form = forms.ReviewFormDelete(request.POST)
             if delete_form.is_valid():
@@ -162,3 +162,4 @@ def edit_review(request, review_id):
         'posts/edit_review.html',
         context
     )
+

@@ -9,5 +9,7 @@ urlpatterns = [
     path('create-review/', create_ticket_and_review, name='create_ticket_and_review'),
     path('create-review/<int:ticket_id>/', create_review, name='create_review'),
     path('edit-ticket/<int:ticket_id>/', edit_ticket, name='edit_ticket'),
-    path('edit-review/<int:ticket_id>/', edit_review, name='edit_review'),
+    path('edit-ticket/<int:ticket_id>/', edit_ticket, name='delete_ticket'),
+    path('edit-review/<int:review_id>/', edit_review, name='edit_review'),
+    path('delete-review/<int:review_id>/', edit_review, name='delete_review'),
 ]
