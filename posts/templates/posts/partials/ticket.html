@@ -1,33 +1,64 @@
-<div class="card"
-    style="padding: 0.2rem 1rem 1rem 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
+{%if item.title %}
+<div style="padding: 0.2rem 1rem 1rem 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
     <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
         <div style="margin-bottom: 2rem;">
-            {%if request.user == ticket.user%}
-            <p>Vous avez publié une critique</p>
+            {%if request.user == item.user%}
+            <p>Vous avez demandé une critique</p>
             {% else %}
-            <p>{{ ticket.user }} a publié une critique</p>
+
+            <p>{{ item.user }} a demandé une critique</p>
             {% endif %}
 
         </div>
-        <p>{{ ticket.time_created }}</p>
+        <p>{{ item.time_created }}</p>
     </div>
 
-    <p>Ticket - {{ ticket.user }}</p>
-    {% if ticket.description|length > 0 %}
-    <p class="description">{{ ticket.description }}</p>
-    {% endif %}
-
-    <div style="border: 1px solid #000; padding: 1rem">
-        <h3>{{ ticket.title }}</h3>
+    <h3>{{ item.description }}</h3>
+    <div style=" padding: 1rem">
+        <p>Ticket - {{ item.user }}</p>
+        <h3>{{ item.title }}</h3>
         <div class="photo-description">
-            {% if ticket.image %}
+            {% if item.image %}
             <p>
-                <img class="photo" src="{{ ticket.image.url }}">
+                <img class="photo" src="{{ item.image.url }}">
             </p>
             {% endif %}
 
         </div>
     </div>
-    <a class="btn" href="{% url 'posts:edit_ticket' ticket.id %}">Modifier</a>
-    <a class="btn" href="{% url 'posts:delete_ticket' ticket.id %}">Supprimer</a>
+    <a class="btn" href="{% url 'posts:edit_ticket' item.id %}">Modifier</a>
+    <a class="btn" href="{% url 'posts:delete_ticket' item.id %}">Supprimer</a>
 </div>
+
+{% endif %}
+{%if item.rating %}
+<div style="padding: 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
+    <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
+        <div style="margin-bottom: 2rem;">
+            {%if request.user == item.ticket.user%}
+            <p>Vous avez publié une critique</p>
+            {% else %}
+            <p>{{ item.user }} publié une critique</p>
+            {% endif %}
+        </div>
+        <p>{{ item.time_created }}</p>
+    </div>
+    <h3>{{ item.headline }}</h3>
+    <div style="border: 1px solid #000; padding: 1rem">
+        <h3>{{ item.ticket.title }}</h3>
+        <p>Ticket - {{ item.user }}</p>
+        <div class="photo-description">
+            {% if item.ticket.image %}
+            <p>
+                <img class="photo" src="{{ item.ticket.image.url }}">
+            </p>
+            {% endif %}
+
+        </div>
+    </div>
+    <a class="btn" href="{% url 'posts:edit_review' item.id %}">Modifier</a>
+    <a class="btn" href="{% url 'posts:delete_review' item.id %}">Supprimer</a>
+    <a class="btn" href="{% url 'posts:create_review' item.ticket.id %}">Créer une critique</a>
+</div>
+
+{% endif %}

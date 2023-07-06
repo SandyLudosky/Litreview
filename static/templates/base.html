@@ -3,7 +3,7 @@
 
 <head>
     <title>LitReviews</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/8e873955b8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -28,7 +28,7 @@
         </div>
     </header>
 
-    <div class="container" style="flex-direction: column;">
+    <div style="width: 80%; margin: 2rem auto">
         {% block content %}{% endblock content %}
     </div>
 

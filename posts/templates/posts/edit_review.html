@@ -12,6 +12,7 @@
     <form method="post" style="width: 80%;">
         {{ delete_form }}
         {% csrf_token %}
+        <a class="btn" href="{% url 'posts:home' %}">Annnuler</a>
         <button class="btn" type="submit">Supprimer</button>
     </form>
 </div>

@@ -1,17 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- <div class="home">
-    <a class="btn mr-5" href="{% url 'posts:create_ticket' %}">Demander une critique</a>
-    <a class="btn" href="{% url 'posts:create_ticket_and_review' %}">Créer une critique</a>
-</div> -->
-{% for item in items %}
-{% if item.title %}
-{% include 'feed/partials/ticket.html' with ticket=item %}
-{% else %}
-{% include 'feed/partials/request_review.html' with review=item %}
-{% endif %}
-{% endfor %}
+
+<div style="display: flex; align-items: center; flex-direction: column;">
+    {% for item in items %}
+    {% include 'posts/partials/ticket.html' with item=item %}
+    {% endfor %}
+</div>
 
 </div>
 {% endblock content %}

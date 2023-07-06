@@ -1,4 +1,3 @@
-from . import views
 from django.urls import path
 from .views import posts, create_ticket, create_review, create_ticket_and_review, edit_ticket, edit_review
 
