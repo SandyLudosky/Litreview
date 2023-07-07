@@ -13,19 +13,19 @@ from . import forms
 @login_required(login_url='login/')
 def posts(request):
     template_name = 'posts/index.html'
+    all_tickets = []
     if not request.user.is_authenticated:
         return HttpResponseRedirect('login') # or http response
     else:
         tickets = Ticket.objects.filter(user=request.user)
-        reviews = Review.objects.filter(user=request.user)
-        items = np.concatenate((tickets, reviews))
-        items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
+        for ticket in tickets:
+            reviews = ticket.reviews.all()
+            all_tickets.append({"ticket": ticket, "reviews": list(reviews)})
 
         context = {
-            'tickets': tickets,
-            'reviews': reviews,
-            'items': items_sorted
+            'tickets': all_tickets,
         }
+        print(all_tickets)
         return render(
             request,
             template_name,
