@@ -1,47 +1,46 @@
-{%if item.ticket.title %}
+{%if item.title %}
 <div style="padding: 0.2rem 1rem 1rem 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
     <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
         <div style="margin-bottom: 2rem;">
-            {%if request.user == item.ticket.user%}
+            {%if request.user == item.user%}
             <p>Vous avez demandé une critique</p>
             {% else %}
 
-            <p>{{ item.ticket.user }} a demandé une critique</p>
+            <p>{{ item.user }} a demandé une critique</p>
             {% endif %}
 
         </div>
-        <p>{{ item.ticket.time_created }}</p>
+        <p>{{ item.time_created }}</p>
     </div>
 
-    <h3>{{ item.ticket.description }}</h3>
+    <h3>{{ item.description }}</h3>
     <div style=" padding: 1rem">
-        <p>Ticket - {{ item.ticket.user }}</p>
-        <h3>{{ item.ticket.title }}</h3>
+        <p>Ticket - {{ item.user }}</p>
+        <h3>{{ item.title }}</h3>
         <div class="photo-description">
-            {% if item.ticket.image %}
+            {% if item.image %}
             <p>
-                <img class="photo" src="{{ item.ticket.image.url }}">
+                <img class="photo" src="{{ item.image.url }}">
             </p>
             {% endif %}
 
         </div>
     </div>
-    <a class="btn" href="{% url 'posts:edit_ticket' item.ticket.id %}">Modifier</a>
-    <a class="btn" href="{% url 'posts:delete_ticket' item.ticket.id %}">Supprimer</a>
-    <a class="btn" href="{% url 'posts:create_review' item.ticket.id %}">Créer une critique</a>
+    <a class="btn" href="{% url 'posts:edit_ticket' item.id %}">Modifier</a>
+    <a class="btn" href="{% url 'posts:delete_ticket' item.id %}">Supprimer</a>
+    <a class="btn" href="{% url 'posts:create_review' item.id %}">Créer une critique</a>
 </div>
 
 {% endif %}
 
-{%if item.reviews|length > 0 %}
-{% for item in item.reviews %}
+{%if item.rating %}
 <div style="padding: 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
     <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
         <div style="margin-bottom: 2rem;">
             {%if request.user == item.user%}
             <p>Vous avez publié une critique</p>
             {% else %}
-            <p>{{ item.user }} publié une critique</p>
+            <p>{{ item.user }} a publié une critique</p>
             {% endif %}
         </div>
         <p>{{ item.time_created }}</p>
@@ -62,5 +61,4 @@
     <a class="btn" href="{% url 'posts:edit_review' item.id %}">Modifier</a>
     <a class="btn" href="{% url 'posts:delete_review' item.id %}">Supprimer</a>
 </div>
-{% endfor %}
 {% endif %}

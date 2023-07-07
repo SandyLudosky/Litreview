@@ -22,10 +22,14 @@ def posts(request):
             reviews = ticket.reviews.all()
             all_tickets.append({"ticket": ticket, "reviews": list(reviews)})
 
+        items = np.concatenate((tickets, list(reviews)))
+        items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
+        print(items)
         context = {
             'tickets': all_tickets,
+            'items': items_sorted,
         }
-        print(all_tickets)
+
         return render(
             request,
             template_name,

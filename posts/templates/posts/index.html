@@ -7,8 +7,8 @@
 </div>
 
 <div style="display: flex; align-items: center; flex-direction: column;">
-    {% for ticket in tickets %}
-    {% include 'posts/partials/ticket.html' with item=ticket %}
+    {% for item in items %}
+    {% include 'posts/partials/ticket.html' with item=item %}
     {% endfor %}
 </div>
 
