@@ -1,3 +1,4 @@
+{% load custom_tags %}
 {%if item.title %}
 <div style="padding: 0.2rem 1rem 1rem 1rem; margin: 2rem 0; border: 1px solid #000; border-radius: 4px; width: 70%;">
     <div style="display: flex; justify-content: space-between; padding: 0 0.1rem">
@@ -17,6 +18,7 @@
     <div style=" padding: 1rem">
         <p>Ticket - {{ item.user }}</p>
         <h3>{{ item.title }}</h3>
+
         <div class="photo-description">
             {% if item.image %}
             <p>
@@ -45,10 +47,11 @@
         </div>
         <p>{{ item.time_created }}</p>
     </div>
-    <h3>{{ item.headline }}</h3>
+    <h3>{{ item.headline }} - {% display_stars item.rating %} ({{ item.rating }})</h3>
     <div style="border: 1px solid #000; padding: 1rem">
         <h3>{{ item.ticket.title }}</h3>
         <p>Ticket - {{ item.user }}</p>
+        <p>{{ item.body }}</p>
         <div class="photo-description">
             {% if item.ticket.image %}
             <p>

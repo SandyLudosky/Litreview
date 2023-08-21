@@ -9,6 +9,8 @@ from .models import Ticket, Review
 from . import forms
 
 
+
+
 # Create your views here.
 @login_required(login_url='login/')
 def posts(request):
@@ -18,13 +20,14 @@ def posts(request):
         return HttpResponseRedirect('login') # or http response
     else:
         tickets = Ticket.objects.filter(user=request.user)
+        reviews = []
         for ticket in tickets:
             reviews = ticket.reviews.all()
             all_tickets.append({"ticket": ticket, "reviews": list(reviews)})
 
         items = np.concatenate((tickets, list(reviews)))
         items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
-        print(items)
+
         context = {
             'tickets': all_tickets,
             'items': items_sorted,
