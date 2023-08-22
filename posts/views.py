@@ -9,23 +9,22 @@ from .models import Ticket, Review
 from . import forms
 
 
-
-
 # Create your views here.
 @login_required(login_url='login/')
 def posts(request):
     template_name = 'posts/index.html'
     all_tickets = []
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('login') # or http response
     else:
         tickets = Ticket.objects.filter(user=request.user)
-        reviews = []
+        all_reviews = Review.objects.filter(user=request.user)
         for ticket in tickets:
             reviews = ticket.reviews.all()
             all_tickets.append({"ticket": ticket, "reviews": list(reviews)})
 
-        items = np.concatenate((tickets, list(reviews)))
+        items = np.concatenate((tickets, list(reviews), list(all_reviews)))
         items_sorted = sorted(items, key=lambda item: item.time_created, reverse=True)
 
         context = {
